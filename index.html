@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TofuF1 - Dashboard</title>
+    <title>TofuF1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     
@@ -98,7 +98,7 @@
     <header id="header-top" class="px-4 d-flex align-items-center justify-content-between fixed-top">
         <div class="d-flex align-items-center">
             <i class="bi bi-speedometer2 fs-4 text-danger me-2"></i>
-            <span class="fs-5 fw-bold text-white tracking-wide">TofuF1 1.1</span>
+            <span class="fs-5 fw-bold text-white tracking-wide">TofuF1 1.3</span>
         </div>
         <div class="text-muted-custom small">
             <span id="last-update">Aggiornamento: In corso...</span>
@@ -295,7 +295,7 @@
             }
         }
 
-        // Template HTML per i Piloti (con bandiera nazione pilota e scuderia)
+        // Template HTML per i Piloti (con bandiera nazione pilota e team)
         function getDriversHTML(drivers) {
             let rows = drivers.map(d => {
                 const driverFlag = getFlagEmoji(d.Driver.nationality);
@@ -308,8 +308,8 @@
                         <td class="fw-bold text-center">${d.position}</td>
                         <td>${driverFlag} ${d.Driver.givenName} <strong>${d.Driver.familyName}</strong></td>
                         <td><span class="badge bg-secondary text-dark fw-bold px-2 py-1">${d.Driver.permanentNumber || 'N/A'}</span></td>
+                        <td class="text-center fw-bold text-danger">${d.points}</td>
                         <td> ${constructorName}</td>
-                        <td class="text-end fw-bold text-danger">${d.points}</td>
                     </tr>
                 `;
             }).join('');
@@ -327,9 +327,9 @@
                                     <tr>
                                         <th class="text-center" style="width: 60px;">Pos</th>
                                         <th>Pilota</th>
-                                        <th style="width: 90px;">N° Gara</th>
-                                        <th>Scuderia</th>
-                                        <th class="text-end">Punti</th>
+                                        <th "text-center">Nr</th>
+                                        <th class="text-center">Punti</th>
+                                        <th>Team</th>
                                     </tr>
                                 </thead>
                                 
@@ -341,7 +341,7 @@
             `;
         }
 
-        // Template HTML per i Costruttori (con bandiera scuderia)
+        // Template HTML per i Costruttori (con bandiera team)
         function getConstructorsHTML(constructors) {
             let rows = constructors.map(c => {
                 const flag = getFlagEmoji(c.Constructor.nationality);
@@ -366,7 +366,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 60px;">Pos</th>
-                                        <th>Scuderia</th>
+                                        <th>Team</th>
                                         <th class="text-end">Punti</th>
                                     </tr>
                                 </thead>
@@ -378,28 +378,109 @@
             `;
         }
 
-        // Template HTML per la Prossima Gara
-        function getNextRaceHTML(race) {
-            if (!race) {
-                return `<div class="card p-4 text-center"><p class="text-muted-custom mb-0">Nessuna informazione disponibile sulla prossima gara o stagione terminata.</p></div>`;
-            }
-            const flag = getFlagEmoji(race.Circuit.Location.country);
-            const formattedDate = formatDate(race.date);
-            return `
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <i class="bi bi-flag me-2 text-danger"></i> Prossimo Gran Premio (${currentYear})
-                    </div>
-                    <div class="card-body p-4">
-                        <h3 class="text-white mb-3">${flag} ${race.raceName}</h3>
-                        <p class="mb-2"><strong>Circuito:</strong> ${race.Circuit.circuitName}</p>
-                        <p class="mb-2"><strong>Località:</strong> ${race.Circuit.Location.locality}, ${race.Circuit.Location.country}</p>
-                        <p class="mb-4"><strong>Data Gara:</strong> ${formattedDate} - ${race.time ? race.time : 'Orario TBD'}</p>
-                        <a href="${race.url}" target="_blank" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-up-right me-1"></i> Maggiori informazioni su Wikipedia</a>
-                    </div>
-                </div>
-            `;
+
+
+        // Template HTML per prossima gara
+function startRaceCountdown(targetUtcString, elementId) {
+    const countdownEl = document.getElementById(elementId);
+    if (!countdownEl) return;
+
+    const targetTime = new Date(targetUtcString).getTime();
+
+    // Aggiorna il countdown ogni secondo
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const difference = targetTime - now;
+
+        if (difference <= 0) {
+            countdownEl.innerHTML = `<span class="badge bg-success">Gara in corso o terminata!</span>`;
+            clearInterval(interval);
+            return;
         }
+
+        // Calcolo di giorni, ore, minuti e secondi
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        countdownEl.innerHTML = `<strong>Conto alla rovescia:</strong> ${days}g ${hours}o ${minutes}m ${seconds}s`;
+    }, 1000);
+}
+
+function getNextRaceHTML(race) {
+    if (!race) {
+        return `<div class="card p-4 text-center"><p class="text-muted-custom mb-0">Nessuna informazione disponibile sulla prossima gara o stagione terminata.</p></div>`;
+    }
+    const flag = getFlagEmoji(race.Circuit.Location.country);
+    
+    // Funzione interna helper per formattare le singole sessioni in ora locale
+    const formatSession = (dateStr, timeStr) => {
+        if (!dateStr || !timeStr) return "Orario TBD";
+        const localDate = new Date(`${dateStr}T${timeStr}`);
+        if (isNaN(localDate.getTime())) return "Orario TBD";
+        return localDate.toLocaleString(navigator.language, {
+            day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+        });
+    };
+
+    // Conversione di tutte le sessioni del weekend
+    const fp1Time = formatSession(race.FirstPractice?.date, race.FirstPractice?.time);
+    const fp2Time = formatSession(race.SecondPractice?.date, race.SecondPractice?.time);
+    const fp3Time = formatSession(race.ThirdPractice?.date, race.ThirdPractice?.time);
+    const qualyTime = formatSession(race.Qualifying?.date, race.Qualifying?.time);
+    const raceTime = formatSession(race.date, race.time);
+
+    // Stringa ISO della gara usata per far partire il timer JS
+    const raceUtcString = (race.date && race.time) ? `${race.date}T${race.time}` : null;
+
+    // Fai partire il countdown subito dopo che l'HTML viene inserito nella pagina
+    if (raceUtcString) {
+        setTimeout(() => startRaceCountdown(raceUtcString, "race-countdown"), 100);
+    }
+
+    return `
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <i class="bi bi-flag me-2 text-danger"></i> Prossimo Gran Premio (${currentYear})
+            </div>
+            <div class="card-body p-4">
+                <h3 class="text-white mb-1">${flag} ${race.raceName}</h3>
+                <p class="text-muted mb-3"><i class="bi bi-geo-alt-fill"></i> ${race.Circuit.circuitName} — ${race.Circuit.Location.locality}, ${race.Circuit.Location.country}</p>
+                
+                <h5 class="text-white border-bottom pb-2 mb-3">Weekend</h5>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between px-0">
+                        <span>Prove Lib 1:</span> <span class="text-info">${fp1Time}</span>
+                    </li>
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between px-0">
+                        <span>Prove Lib 2:</span> <span class="text-info">${fp2Time}</span>
+                    </li>
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between px-0">
+                        <span>Prove Lib 3:</span> <span class="text-info">${fp3Time}</span>
+                    </li>
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between px-0">
+                        <span>Qual:</span> <span class="text-warning fw-bold">${qualyTime}</span>
+                    </li>
+                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between px-0 border-bottom-0">
+                        <span>Gara:</span> <span class="text-success fw-bold">${raceTime}</span>
+                    </li>
+                </ul>
+
+                <!-- Box dedicato al Countdown della Gara -->
+                ${raceUtcString ? `
+                <div class="alert alert-dark border-secondary text-center mb-4" id="race-countdown">
+                    <strong>Conto alla rovescia:</strong> Calcolo in corso...
+                </div>
+                ` : ''}
+
+                <a href="${race.url}" target="_blank" class="btn btn-outline-light btn-sm w-100"><i class="bi bi-box-arrow-up-right me-1"></i> Maggiori informazioni su Wikipedia</a>
+            </div>
+        </div>
+    `;
+}
+
+
 
         // Template HTML per il Calendario Gare
         function getCalendarHTML(races) {
@@ -449,11 +530,11 @@
                         <i class="bi bi-info-circle me-2 text-danger"></i> About & Credits / Note Legali
                     </div>
                     <div class="card-body p-4">
-                        <h4 class="text-white mb-3">TofuF1 Dashboard</h4>
+                        <h4 class="text-white mb-3">TofuF1</h4>
                         <p>Questo applicativo web è un progetto minimale sviluppato esclusivamente a <strong>scopo di studio personale, didattico e di ricerca</strong>. Non possiede alcuna natura commerciale né persegue fini di lucro.</p>
                         
                         <h5 class="text-white mt-4 mb-2">Origine dei Dati e Disclaimer</h5>
-                        <p>Tutti i dati relativi alle classifiche, ai piloti, alle scuderie e ai calendari vengono prelevati in tempo reale direttamente tramite le API pubbliche messe a disposizione da <strong>Jolpica F1</strong> (un'alternativa open data basata sul database storico Ergast).</p>
+                        <p>Tutti i dati relativi alle classifiche, ai piloti, ai team e ai calendari vengono prelevati in tempo reale direttamente tramite le API pubbliche messe a disposizione da <strong>Jolpica F1</strong> (un'alternativa open data basata sul database storico Ergast).</p>
                         <p class="text-muted-custom">Questo sito non è in alcun modo affiliato, associato, autorizzato, sponsorizzato o ufficialmente connesso con la Formula 1, Formula One Management (FOM), Formula One Licensing BV, o con alcuna delle loro società affiliate o controllate. I nomi, i marchi, i loghi e le immagini della Formula 1 appartengono ai rispettivi proprietari e vengono citati esclusivamente a scopo descrittivo e informativo.</p>
 
                         <h5 class="text-white mt-4 mb-2">Proprietà Intellettuale</h5>
