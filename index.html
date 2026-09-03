@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#08090d">
 
-<link rel="icon" href="/tofuf1/favicon.ico">
+  <link rel="icon" href="/tofuf1/favicon.ico">
 
   <title>Tofu F1 2.0.1 (beta)</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,127 +26,647 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
-      margin: 0; min-height: 100vh;
+      margin: 0;
+      min-height: 100vh;
       background: radial-gradient(circle at 50% -15%, #1b1e2b 0, #0b0c11 35%, var(--bg) 70%);
       color: var(--text);
       font-family: Inter, system-ui, -apple-system, sans-serif;
       font-size: 13px;
     }
 
-    a { color: inherit; text-decoration: none; }
-    .app-container { width: min(100%, 760px); margin: 0 auto; padding: 10px 9px calc(25px + env(safe-area-inset-bottom)); }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app-container {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 10px 9px calc(25px + env(safe-area-inset-bottom));
+    }
 
     /* HEADER & CARDS */
-    .app-header { display: flex; align-items: center; gap: 10px; padding: 4px 2px 15px; }
-    .app-logo { width: 43px; height: 43px; flex: 0 0 43px; padding: 6px; object-fit: contain; border-radius: 11px; background: var(--card); border: 1px solid var(--border); }
-    .header-content { min-width: 0; flex: 1; }
-    .app-title { margin: 0; font-size: 18px; font-weight: 850; letter-spacing: -.4px; line-height: 1.1; }
-    .header-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; color: var(--muted); font-size: 9px; }
-    .version { color: var(--accent); font-weight: 800; }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #42d98a; box-shadow: 0 0 7px rgba(66, 217, 138, .7); }
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 2px 15px;
+    }
 
-    .app-card { overflow: hidden; margin-bottom: 11px; border: 1px solid var(--border); border-radius: var(--radius); background: linear-gradient(145deg, #12141c, #0e1016); box-shadow: 0 7px 25px rgba(0, 0, 0, .18); }
-    .card-header-custom { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 13px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.01); }
-    .section-title { display: flex; align-items: center; margin: 0; font-size: 12px; font-weight: 850; }
-    .section-number { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin-right: 7px; border-radius: 7px; background: #191c25; border: 1px solid #303442; color: var(--muted); font-size: 9px; }
-    .card-body-custom { padding: 12px 13px; }
-    .card-round { color: var(--muted-2); font-size: 9px; }
-    .loading { padding: 22px 5px; color: var(--muted); text-align: center; font-size: 11px; }
-    .error { padding: 11px; border-radius: 9px; background: rgba(225, 20, 20, .08); border: 1px solid rgba(225, 20, 20, .25); color: #ff8580; font-size: 10px; }
+    .app-logo {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      padding: 6px;
+      object-fit: contain;
+      border-radius: 11px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .header-content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .app-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: -.4px;
+      line-height: 1.1;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .version {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #42d98a;
+      box-shadow: 0 0 7px rgba(66, 217, 138, .7);
+    }
+
+    .app-card {
+      overflow: hidden;
+      margin-bottom: 11px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #12141c, #0e1016);
+      box-shadow: 0 7px 25px rgba(0, 0, 0, .18);
+    }
+
+    .card-header-custom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.01);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      margin-right: 7px;
+      border-radius: 7px;
+      background: #191c25;
+      border: 1px solid #303442;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .card-body-custom {
+      padding: 12px 13px;
+    }
+
+    .card-round {
+      color: var(--muted-2);
+      font-size: 9px;
+    }
+
+    .loading {
+      padding: 22px 5px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .error {
+      padding: 11px;
+      border-radius: 9px;
+      background: rgba(225, 20, 20, .08);
+      border: 1px solid rgba(225, 20, 20, .25);
+      color: #ff8580;
+      font-size: 10px;
+    }
 
     /* CARD 1 - RACE */
-    .race-label { margin-bottom: 2px; color: var(--accent); font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: .9px; }
-    .race-name { font-size: 20px; font-weight: 900; line-height: 1.1; letter-spacing: -.4px; }
-    .race-flag { margin-right: 4px; font-size: 21px; }
-    .race-location { margin-top: 3px; color: var(--muted); font-size: 10px; }
-    .countdown { margin: 12px 0; padding: 12px; text-align: center; border-radius: 11px; border: 1px solid rgba(100, 214, 202, .18); background: linear-gradient(135deg, rgba(100,214,202,.10), rgba(100,214,202,.025)); }
-    .countdown-label { color: var(--muted); font-size: 8px; text-transform: uppercase; letter-spacing: .8px; }
-    .countdown-value { margin-top: 3px; color: var(--accent); font-size: 23px; line-height: 1.1; font-weight: 900; font-variant-numeric: tabular-nums; }
-    .countdown-date { margin-top: 4px; color: var(--muted-2); font-size: 8px; }
-    .session-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; }
-    .session { padding: 7px 8px; border: 1px solid var(--border); border-radius: 8px; background: #0c0e13; }
-    .session-name { overflow: hidden; color: var(--muted); font-size: 8px; white-space: nowrap; text-overflow: ellipsis; }
-    .session-date { margin-top: 2px; font-size: 12px; font-weight: 750; }
-    .session-time { color: var(--accent); font-size: 12px; font-weight: 750; }
+    .race-label {
+      margin-bottom: 2px;
+      color: var(--accent);
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+    }
+
+    .race-name {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.4px;
+    }
+
+    .race-flag {
+      margin-right: 4px;
+      font-size: 21px;
+    }
+
+    .race-location {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .countdown {
+      margin: 12px 0;
+      padding: 12px;
+      text-align: center;
+      border-radius: 11px;
+      border: 1px solid rgba(100, 214, 202, .18);
+      background: linear-gradient(135deg, rgba(100,214,202,.10), rgba(100,214,202,.025));
+    }
+
+    .countdown-label {
+      color: var(--muted);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .countdown-value {
+      margin-top: 3px;
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1.1;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-date {
+      margin-top: 4px;
+      color: var(--muted-2);
+      font-size: 8px;
+    }
+
+    .session-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 5px;
+    }
+
+    .session {
+      padding: 7px 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #0c0e13;
+    }
+
+    .session-name {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 8px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .session-date {
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .session-time {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 750;
+    }
 
     /* TABLES */
-    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .standings-table { width: 100%; border-collapse: collapse; }
-    .standings-table th { padding: 6px 5px 7px; border-bottom: 1px solid var(--border); color: var(--muted-2); font-size: 8px; font-weight: 750; text-transform: uppercase; letter-spacing: .45px; }
-    .standings-table td { padding: 8px 5px; border-bottom: 1px solid rgba(36,40,51,.7); vertical-align: middle; }
-    .standings-table tr:last-child td { border-bottom: 0; }
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-    .position { width: 33px; text-align: center; }
-    .position-badge { display: inline-flex; align-items: center; justify-content: center; width: 27px; height: 27px; border-radius: 8px; background: #0c0e13; border: 1px solid #252936; color: var(--muted); font-size: 10px; font-weight: 850; }
-    .position-1 { color: #ffd447; border-color: #67551d; background: rgba(255,212,71,.07); }
-    .position-2 { color: #d2d3da; border-color: #484a54; background: rgba(210,211,218,.06); }
-    .position-3 { color: #d89145; border-color: #5e4227; background: rgba(216,145,69,.06); }
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-    .number { width: 34px; text-align: center; color: var(--text); font-size: 15px; font-weight: 850; }
-    .driver-cell { min-width: 140px; }
-    .driver-content { display: flex; align-items: center; gap: 6px; }
-    .driver-flag { width: 20px; flex: 0 0 20px; font-size: 15px; line-height: 1; }
-    .driver-name { font-size: 11px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
-    .driver-team { margin-top: 2px; color: var(--muted); font-size: 8px; white-space: nowrap; }
-    .team-dot { display: inline-block; width: 8px; height: 8px; margin-right: 5px; border-radius: 50%; vertical-align: middle; }
-    .points { width: 52px; text-align: right; font-size: 11px; font-weight: 900; white-space: nowrap; }
+    .standings-table th {
+      padding: 6px 5px 7px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted-2);
+      font-size: 8px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: .45px;
+    }
+
+    .standings-table td {
+      padding: 8px 5px;
+      border-bottom: 1px solid rgba(36,40,51,.7);
+      vertical-align: middle;
+    }
+
+    .standings-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .position {
+      width: 33px;
+      text-align: center;
+    }
+
+    .position-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 27px;
+      height: 27px;
+      border-radius: 8px;
+      background: #0c0e13;
+      border: 1px solid #252936;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .position-1 {
+      color: #ffd447;
+      border-color: #67551d;
+      background: rgba(255,212,71,.07);
+    }
+
+    .position-2 {
+      color: #d2d3da;
+      border-color: #484a54;
+      background: rgba(210,211,218,.06);
+    }
+
+    .position-3 {
+      color: #d89145;
+      border-color: #5e4227;
+      background: rgba(216,145,69,.06);
+    }
+
+    .number {
+      width: 34px;
+      text-align: center;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .driver-cell {
+      min-width: 140px;
+    }
+
+    .driver-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .driver-flag {
+      width: 20px;
+      flex: 0 0 20px;
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .driver-name {
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .driver-team {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 8px;
+      white-space: nowrap;
+    }
+
+    .team-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 5px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+
+    .points {
+      width: 52px;
+      text-align: right;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
 
     /* CONSTRUCTORS & CALENDAR */
-    .constructors-table { table-layout: fixed; min-width: 0; width: 100%; }
-    .constructors-table .position { width: 32px; }
-    .constructor-cell { width: 92px; overflow: hidden; }
-    .constructor-name { display: flex; align-items: center; overflow: hidden; font-size: 11px; font-weight: 800; white-space: nowrap; text-overflow: ellipsis; }
-    .points-bar-cell { width: auto; }
-    .points-bar-track { position: relative; display: flex; align-items: center; width: 100%; height: 20px; overflow: hidden; border-radius: 5px; background: rgba(255,255,255,.05); }
-    .points-bar-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 5px; opacity: .35; }
-    .points-bar-value { position: relative; margin-left: 8px; color: var(--text); font-size: 11px; font-weight: 900; white-space: nowrap; }
+    .constructors-table {
+      table-layout: fixed;
+      min-width: 0;
+      width: 100%;
+    }
 
-    .calendar { display: flex; flex-direction: column; }
-    .calendar-row { display: grid; grid-template-columns: 29px 69px minmax(0, 1fr) 20px; align-items: center; gap: 5px; min-height: 46px; border-bottom: 1px solid var(--border); }
-    .calendar-row:last-child { border-bottom: 0; }
-    .calendar-row.past { color: #666a75; }
-    .calendar-row.past .calendar-date, .calendar-row.past .calendar-name { color: #686c77; }
-    .calendar-row.next { margin: 0 -6px; padding: 0 6px; border-radius: 8px; background: rgba(100,214,202,.055); }
-    .round { color: var(--muted-2); font-size: 8px; text-align: center; }
-    .calendar-date { color: var(--text); font-size: 9px; font-weight: 800; font-variant-numeric: tabular-nums; }
-    .calendar-name { min-width: 0; overflow: hidden; color: var(--text); font-size: 10px; font-weight: 750; white-space: nowrap; text-overflow: ellipsis; }
-    .calendar-city { display: block; margin-top: 1px; color: var(--muted); font-size: 8px; font-weight: 500; }
-    .wiki { color: var(--muted); font-size: 12px; text-align: center; }
-    .wiki:hover { color: white; }
-    .next-badge { display: inline-block; margin-left: 3px; padding: 1px 3px; border: 1px solid rgba(100,214,202,.25); border-radius: 3px; color: var(--accent); font-size: 6px; text-transform: uppercase; letter-spacing: .4px; }
+    .constructors-table .position {
+      width: 32px;
+    }
 
-    .disclaimer { color: #777c8d; font-size: 10px; line-height: 1.6; }
-    .disclaimer strong { color: #a9adba; }
-    .copyright { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); color: #555a69; font-size: 7px; }
-    .footer { padding: 2px 0 8px; color: #505463; font-size: 7px; text-align: center; }
+    .constructor-cell {
+      width: 92px;
+      overflow: hidden;
+    }
+
+    .constructor-name {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .points-bar-cell {
+      width: auto;
+    }
+
+    .points-bar-track {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 20px;
+      overflow: hidden;
+      border-radius: 5px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .points-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 5px;
+      opacity: .35;
+    }
+
+    .points-bar-value {
+      position: relative;
+      margin-left: 8px;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .calendar {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calendar-row {
+      display: grid;
+      grid-template-columns: 29px 69px minmax(0, 1fr) 20px;
+      align-items: center;
+      gap: 5px;
+      min-height: 46px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calendar-row:last-child {
+      border-bottom: 0;
+    }
+
+    .calendar-row.past {
+      color: #666a75;
+    }
+
+    .calendar-row.past .calendar-date,
+    .calendar-row.past .calendar-name {
+      color: #686c77;
+    }
+
+    .calendar-row.next {
+      margin: 0 -6px;
+      padding: 0 6px;
+      border-radius: 8px;
+      background: rgba(100,214,202,.055);
+    }
+
+    .round {
+      color: var(--muted-2);
+      font-size: 8px;
+      text-align: center;
+    }
+
+    .calendar-date {
+      color: var(--text);
+      font-size: 9px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .calendar-name {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 750;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .calendar-city {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 500;
+    }
+
+    .wiki {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .wiki:hover {
+      color: white;
+    }
+
+    .next-badge {
+      display: inline-block;
+      margin-left: 3px;
+      padding: 1px 3px;
+      border: 1px solid rgba(100,214,202,.25);
+      border-radius: 3px;
+      color: var(--accent);
+      font-size: 6px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .disclaimer {
+      color: #777c8d;
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .disclaimer strong {
+      color: #a9adba;
+    }
+
+    .copyright {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid var(--border);
+      color: #555a69;
+      font-size: 7px;
+    }
+
+    .footer {
+      padding: 2px 0 8px;
+      color: #505463;
+      font-size: 7px;
+      text-align: center;
+    }
 
     /* MOBILE DINAMICO - ZERO SCROLLBAR & PUNTI VISIBILI */
     @media (max-width: 480px) {
-      .app-container { padding-left: 7px; padding-right: 7px; }
-      .app-card { border-radius: 13px; }
-      .card-header-custom, .card-body-custom { padding-left: 10px; padding-right: 10px; }
-      .race-name { font-size: 18px; }
-      .countdown-value { font-size: 21px; }
-      .calendar-row { grid-template-columns: 27px 65px minmax(0,1fr) 19px; }
+      .app-container {
+        padding-left: 7px;
+        padding-right: 7px;
+      }
 
-      .session { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; }
-      .session-name { flex: 1 1 auto; font-size: 13px; font-weight: 650; white-space: normal; }
-      .session-date { margin-top: 0; flex: 0 0 auto; font-size: 15px; text-align: right; }
-      .session-time { flex: 0 0 auto; font-size: 14px; text-align: right; }
+      .app-card {
+        border-radius: 13px;
+      }
 
-      .drivers-table { table-layout: fixed; min-width: 0 !important; width: 100%; }
-      .drivers-table .position { width: 28px; }
-      .drivers-table .number { width: 26px; font-size: 12px; }
-      .drivers-table .driver-cell { width: auto; min-width: 0; }
-      .drivers-table .driver-info { flex: 1 1 auto; min-width: 0; overflow: hidden; }
-      .drivers-table .driver-name, .drivers-table .driver-team { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .drivers-table .points { width: 45px; text-align: right; font-size: 13px; padding-right: 4px; }
+      .card-header-custom,
+      .card-body-custom {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
 
-      .constructor-cell { width: 68px; }
-      .constructor-name { font-size: 10px; }
-      .points-bar-track { height: 24px; }
-      .points-bar-value { margin-left: 6px; font-size: 12px; }
+      .race-name {
+        font-size: 18px;
+      }
+
+      .countdown-value {
+        font-size: 21px;
+      }
+
+      .calendar-row {
+        grid-template-columns: 27px 65px minmax(0,1fr) 19px;
+      }
+
+      .session {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 13px 14px;
+      }
+
+      .session-name {
+        flex: 1 1 auto;
+        font-size: 13px;
+        font-weight: 650;
+        white-space: normal;
+      }
+
+      .session-date {
+        margin-top: 0;
+        flex: 0 0 auto;
+        font-size: 15px;
+        text-align: right;
+      }
+
+      .session-time {
+        flex: 0 0 auto;
+        font-size: 14px;
+        text-align: right;
+      }
+
+      .drivers-table {
+        table-layout: fixed;
+        min-width: 0 !important;
+        width: 100%;
+      }
+
+      .drivers-table .position {
+        width: 28px;
+      }
+
+      .drivers-table .number {
+        width: 26px;
+        font-size: 12px;
+      }
+
+      .drivers-table .driver-cell {
+        width: auto;
+        min-width: 0;
+      }
+
+      .drivers-table .driver-info {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .drivers-table .driver-name,
+      .drivers-table .driver-team {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .drivers-table .points {
+        width: 45px;
+        text-align: right;
+        font-size: 13px;
+        padding-right: 4px;
+      }
+
+      .constructor-cell {
+        width: 68px;
+      }
+
+      .constructor-name {
+        font-size: 10px;
+      }
+
+      .points-bar-track {
+        height: 24px;
+      }
+
+      .points-bar-value {
+        margin-left: 6px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -154,10 +674,13 @@
 <body>
 
 <div class="app-container">
+
   <header class="app-header">
-  <img src="tofuf1.svg" class="app-logo" alt="Logo" onerror="this.style.display='none'"
+    <img src="tofuf1.svg" class="app-logo" alt="TofuF1">
+
     <div class="header-content">
       <h1 class="app-title">TofuF1</h1>
+
       <div class="header-meta">
         <span class="version">v2.0.1</span>
         <span>•</span>
@@ -170,60 +693,98 @@
   <!-- CARD 1 -->
   <section class="app-card">
     <div class="card-header-custom">
-      <h2 class="section-title"><span class="section-number">01</span> Prossimo Gran Premio</h2>
+      <h2 class="section-title">
+        <span class="section-number">01</span>
+        Prossimo Gran Premio
+      </h2>
       <span id="nextRound" class="card-round"></span>
     </div>
-    <div id="nextRaceContent" class="card-body-custom"><div class="loading">Caricamento calendario...</div></div>
+
+    <div id="nextRaceContent" class="card-body-custom">
+      <div class="loading">Caricamento calendario...</div>
+    </div>
   </section>
 
   <!-- CARD 2 - PILOTI -->
   <section class="app-card">
     <div class="card-header-custom">
-      <h2 class="section-title"><span class="section-number">02</span> Classifica Piloti</h2>
+      <h2 class="section-title">
+        <span class="section-number">02</span>
+        Classifica Piloti
+      </h2>
       <span id="driverRound" class="card-round"></span>
     </div>
-    <div id="driversContent" class="p-0"><div class="loading">Caricamento classifica...</div></div>
+
+    <div id="driversContent" class="p-0">
+      <div class="loading">Caricamento classifica...</div>
+    </div>
   </section>
 
   <!-- CARD 3 -->
   <section class="app-card">
     <div class="card-header-custom">
-      <h2 class="section-title"><span class="section-number">03</span> Classifica Costruttori</h2>
+      <h2 class="section-title">
+        <span class="section-number">03</span>
+        Classifica Costruttori
+      </h2>
       <span id="constructorRound" class="card-round"></span>
     </div>
-    <div id="constructorsContent" class="p-0"><div class="loading">Caricamento classifica...</div></div>
+
+    <div id="constructorsContent" class="p-0">
+      <div class="loading">Caricamento classifica...</div>
+    </div>
   </section>
 
   <!-- CARD 4 -->
   <section class="app-card">
     <div class="card-header-custom">
-      <h2 class="section-title"><span class="section-number">04</span> Calendario</h2>
+      <h2 class="section-title">
+        <span class="section-number">04</span>
+        Calendario
+      </h2>
       <span class="card-round">2026</span>
     </div>
-    <div id="calendarContent" class="card-body-custom"><div class="loading">Caricamento calendario...</div></div>
+
+    <div id="calendarContent" class="card-body-custom">
+      <div class="loading">Caricamento calendario...</div>
+    </div>
   </section>
 
   <!-- CARD 5 -->
   <section class="app-card">
     <div class="card-header-custom">
-      <h2 class="section-title"><span class="section-number">05</span> Disclaimer</h2>
+      <h2 class="section-title">
+        <span class="section-number">05</span>
+        Disclaimer
+      </h2>
     </div>
+
     <div class="card-body-custom">
       <div class="disclaimer">
         <strong>Informazioni e dati.</strong> Progetto indipendente non ufficiale F1.<br><br>
+
         I dati provengono da Jolpica API.<br><br>
-        <strong>Marchi e proprietà intellettuale.</strong> Tutti i marchi appartengono ai rispettivo proprietari.
-        <div class="copyright">TofuF1 — progetto indipendente</div>
+
+        <strong>Marchi e proprietà intellettuale.</strong>
+        Tutti i marchi appartengono ai rispettivo proprietari.
+
+        <div class="copyright">
+          TofuF1 — progetto indipendente
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="footer">Dati F1 tramite Jolpica API · Orari locale dispositivo</div>
+  <div class="footer">
+    Dati F1 tramite Jolpica API · Orari locale dispositivo
+  </div>
+
 </div>
 
 <script>
   const SEASON = "2026";
   const API_BASE = "https://api.jolpi.ca/ergast/f1";
+
   const ENDPOINTS = {
     schedule: `${API_BASE}/${SEASON}.json`,
     drivers: `${API_BASE}/${SEASON}/driverstandings.json`,
@@ -231,84 +792,196 @@
   };
 
   const TEAM_COLORS = {
-    mercedes: "#00a19c", ferrari: "#e10600", mclaren: "#ff8700", red_bull: "#3671c6",
-    rb: "#6692ff", racing_bulls: "#6692ff", williams: "#0000ff", aston_martin: "#229971",
-    alpine: "#f961b4", haas: "#a5a5a5", audi: "#913539", cadillac: "#8d8d8d"
+    mercedes: "#00a19c",
+    ferrari: "#e10600",
+    mclaren: "#ff8700",
+    red_bull: "#3671c6",
+    rb: "#6692ff",
+    racing_bulls: "#6692ff",
+    williams: "#0000ff",
+    aston_martin: "#229971",
+    alpine: "#f961b4",
+    haas: "#a5a5a5",
+    audi: "#913539",
+    cadillac: "#8d8d8d"
   };
 
   const NATIONALITY_FLAGS = {
-    Italian: "🇮🇹", British: "🇬🇧", Monegasque: "🇲🇨", Dutch: "🇳🇱", Australian: "🇦🇺",
-    French: "🇫🇷", "New Zealander": "🇳🇿", Argentine: "🇦🇷", American: "🇺🇸", Brazilian: "🇧🇷",
-    Spanish: "🇪🇸", Thai: "🇹🇭", German: "🇩🇪", Canadian: "🇨🇦", Finnish: "🇫🇮", Mexican: "🇲🇽",
-    Austrian: "🇦🇹", Belgian: "🇧🇪", Chinese: "🇨🇳", Japanese: "🇯🇵", Danish: "🇩🇰", Swiss: "🇨🇭"
+    Italian: "🇮🇹",
+    British: "🇬🇧",
+    Monegasque: "🇲🇨",
+    Dutch: "🇳🇱",
+    Australian: "🇦🇺",
+    French: "🇫🇷",
+    "New Zealander": "🇳🇿",
+    Argentine: "🇦🇷",
+    American: "🇺🇸",
+    Brazilian: "🇧🇷",
+    Spanish: "🇪🇸",
+    Thai: "🇹🇭",
+    German: "🇩🇪",
+    Canadian: "🇨🇦",
+    Finnish: "🇫🇮",
+    Mexican: "🇲🇽",
+    Austrian: "🇦🇹",
+    Belgian: "🇧🇪",
+    Chinese: "🇨🇳",
+    Japanese: "🇯🇵",
+    Danish: "🇩🇰",
+    Swiss: "🇨🇭"
   };
 
   const COUNTRY_FLAGS = {
-    Australia: "🇦🇺", China: "🇨🇳", Japan: "🇯🇵", USA: "🇺🇸", Canada: "🇨🇦", Monaco: "🇲🇨",
-    Spain: "🇪🇸", Austria: "🇦🇹", UK: "🇬🇧", Belgium: "🇧🇪", Hungary: "🇭🇺", Netherlands: "🇳🇱",
-    Italy: "🇮🇹", Azerbaijan: "🇦🇿", Singapore: "🇸🇬", Mexico: "🇲🇽", Brazil: "🇧🇷", Qatar: "🇶🇦",
-    UAE: "🇦🇪", Bahrain: "🇧🇭", Saudi: "🇸🇦"
+    Australia: "🇦🇺",
+    China: "🇨🇳",
+    Japan: "🇯🇵",
+    USA: "🇺🇸",
+    Canada: "🇨🇦",
+    Monaco: "🇲🇨",
+    Spain: "🇪🇸",
+    Austria: "🇦🇹",
+    UK: "🇬🇧",
+    Belgium: "🇧🇪",
+    Hungary: "🇭🇺",
+    Netherlands: "🇳🇱",
+    Italy: "🇮🇹",
+    Azerbaijan: "🇦🇿",
+    Singapore: "🇸🇬",
+    Mexico: "🇲🇽",
+    Brazil: "🇧🇷",
+    Qatar: "🇶🇦",
+    UAE: "🇦🇪",
+    Bahrain: "🇧🇭",
+    Saudi: "🇸🇦"
   };
 
   function escapeHtml(value) {
-    return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  function getTeamColor(id) { return TEAM_COLORS[id] || "#777"; }
-  function getFlag(nat) { return NATIONALITY_FLAGS[nat] || "🏁"; }
-  function getCountryFlag(country) { return COUNTRY_FLAGS[country] || "🏁"; }
+  function getTeamColor(id) {
+    return TEAM_COLORS[id] || "#777";
+  }
+
+  function getFlag(nat) {
+    return NATIONALITY_FLAGS[nat] || "🏁";
+  }
+
+  function getCountryFlag(country) {
+    return COUNTRY_FLAGS[country] || "🏁";
+  }
 
   function formatDate(date) {
     if (!date) return "—";
+
     const d = new Date(date);
-    return Number.isNaN(d.getTime()) ? "—" : new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "2-digit", year: "2-digit" }).format(d);
+
+    return Number.isNaN(d.getTime())
+      ? "—"
+      : new Intl.DateTimeFormat("it-IT", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit"
+        }).format(d);
   }
 
   function formatDateTime(date, time) {
     if (!date || !time) return null;
+
     const d = new Date(`${date}T${time.replace("Z", "")}Z`);
+
     if (Number.isNaN(d.getTime())) return null;
+
     return {
       date: formatDate(d),
-      time: new Intl.DateTimeFormat("it-IT", { hour: "2-digit", minute: "2-digit", hour12: false }).format(d),
+      time: new Intl.DateTimeFormat("it-IT", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).format(d),
       timestamp: d.getTime()
     };
   }
 
-  function getRaceDateTime(race) { return race?.date && race?.time ? new Date(`${race.date}T${race.time.replace("Z", "")}Z`) : null; }
+  function getRaceDateTime(race) {
+    return race?.date && race?.time
+      ? new Date(`${race.date}T${race.time.replace("Z", "")}Z`)
+      : null;
+  }
 
   function updateLastUpdate() {
     const now = new Date();
-    document.getElementById("lastUpdate").textContent = `${formatDate(now)} ${new Intl.DateTimeFormat("it-IT", { hour: "2-digit", minute: "2-digit", hour12: false }).format(now)}`;
+
+    document.getElementById("lastUpdate").textContent =
+      `${formatDate(now)} ${new Intl.DateTimeFormat("it-IT", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).format(now)}`;
   }
 
-  function showError(id, text) { document.getElementById(id).innerHTML = `<div class="error">${escapeHtml(text)}</div>`; }
+  function showError(id, text) {
+    document.getElementById(id).innerHTML =
+      `<div class="error">${escapeHtml(text)}</div>`;
+  }
 
   async function fetchJson(url) {
-    const res = await fetch(url, { headers: { "Accept": "application/json" }, cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const res = await fetch(url, {
+      headers: {
+        "Accept": "application/json"
+      },
+      cache: "no-store"
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
     return res.json();
   }
 
   async function loadData() {
     updateLastUpdate();
+
     try {
-      const [scheduleData, driverData, constructorData] = await Promise.all([
-        fetchJson(ENDPOINTS.schedule), fetchJson(ENDPOINTS.drivers), fetchJson(ENDPOINTS.constructors)
+      const [
+        scheduleData,
+        driverData,
+        constructorData
+      ] = await Promise.all([
+        fetchJson(ENDPOINTS.schedule),
+        fetchJson(ENDPOINTS.drivers),
+        fetchJson(ENDPOINTS.constructors)
       ]);
 
-      const races = scheduleData?.MRData?.RaceTable?.Races || [];
-      const drivers = driverData?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || [];
-      const constructors = constructorData?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || [];
-      const driverRound = driverData?.MRData?.StandingsTable?.StandingsLists?.[0]?.round;
-      const constructorRound = constructorData?.MRData?.StandingsTable?.StandingsLists?.[0]?.round;
+      const races =
+        scheduleData?.MRData?.RaceTable?.Races || [];
+
+      const drivers =
+        driverData?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || [];
+
+      const constructors =
+        constructorData?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || [];
+
+      const driverRound =
+        driverData?.MRData?.StandingsTable?.StandingsLists?.[0]?.round;
+
+      const constructorRound =
+        constructorData?.MRData?.StandingsTable?.StandingsLists?.[0]?.round;
 
       renderNextRace(races);
       renderDrivers(drivers, driverRound);
       renderConstructors(constructors, constructorRound);
       renderCalendar(races);
+
     } catch (e) {
       console.error(e);
+
       showError("nextRaceContent", "Errore Gran Premio.");
       showError("driversContent", "Errore piloti.");
       showError("constructorsContent", "Errore costruttori.");
@@ -317,81 +990,194 @@
   }
 
   let countdownTimer = null;
+
   function renderNextRace(races) {
     const now = Date.now();
-    const upcoming = races.filter(r => getRaceDateTime(r)?.getTime() > now).sort((a,b) => getRaceDateTime(a) - getRaceDateTime(b));
-    if (!upcoming.length) { document.getElementById("nextRaceContent").innerHTML = `<div class="loading">Stagione terminata.</div>`; return; }
+
+    const upcoming = races
+      .filter(r => getRaceDateTime(r)?.getTime() > now)
+      .sort((a, b) => getRaceDateTime(a) - getRaceDateTime(b));
+
+    if (!upcoming.length) {
+      document.getElementById("nextRaceContent").innerHTML =
+        `<div class="loading">Stagione terminata.</div>`;
+      return;
+    }
 
     const race = upcoming[0];
-    document.getElementById("nextRound").textContent = `Round ${race.round}`;
-    const flag = getCountryFlag(race.Circuit?.Location?.country);
+
+    document.getElementById("nextRound").textContent =
+      `Round ${race.round}`;
+
+    const flag =
+      getCountryFlag(race.Circuit?.Location?.country);
+
     const sessions = [];
 
-    const defs = [["FirstPractice","FP1"],["SecondPractice","FP2"],["ThirdPractice","FP3"],["SprintQualifying","Qualifica Sprint"],["Sprint","Sprint Race"],["Qualifying","Qualifica Gara"],["Race","Gara"]];
+    const defs = [
+      ["FirstPractice", "FP1"],
+      ["SecondPractice", "FP2"],
+      ["ThirdPractice", "FP3"],
+      ["SprintQualifying", "Qualifica Sprint"],
+      ["Sprint", "Sprint Race"],
+      ["Qualifying", "Qualifica Gara"],
+      ["Race", "Gara"]
+    ];
+
     defs.forEach(([key, label]) => {
-      const src = key === "Race" ? { date: race.date, time: race.time } : race[key];
+      const src =
+        key === "Race"
+          ? { date: race.date, time: race.time }
+          : race[key];
+
       const f = formatDateTime(src?.date, src?.time);
-      if (f) sessions.push({ label, ...f });
+
+      if (f) {
+        sessions.push({
+          label,
+          ...f
+        });
+      }
     });
 
     document.getElementById("nextRaceContent").innerHTML = `
       <div>
-        <div class="race-label">Round ${escapeHtml(race.round)}</div>
-        <div class="race-name"><span class="race-flag">${flag}</span> ${escapeHtml(race.raceName)}</div>
-        <div class="race-location">${escapeHtml(race.Circuit?.circuitName || "")} · ${escapeHtml(race.Circuit?.Location?.locality || "")}</div>
+        <div class="race-label">
+          Round ${escapeHtml(race.round)}
+        </div>
+
+        <div class="race-name">
+          <span class="race-flag">${flag}</span>
+          ${escapeHtml(race.raceName)}
+        </div>
+
+        <div class="race-location">
+          ${escapeHtml(race.Circuit?.circuitName || "")}
+          ·
+          ${escapeHtml(race.Circuit?.Location?.locality || "")}
+        </div>
       </div>
+
       <div class="countdown">
-        <div class="countdown-label">Countdown alla gara</div>
-        <div id="countdownValue" class="countdown-value">--g --h --m --s</div>
-        <div class="countdown-date">${formatDateTime(race.date, race.time)?.date || "—"} · ${formatDateTime(race.date, race.time)?.time || "—"}</div>
+        <div class="countdown-label">
+          Countdown alla gara
+        </div>
+
+        <div id="countdownValue" class="countdown-value">
+          --g --h --m --s
+        </div>
+
+        <div class="countdown-date">
+          ${formatDateTime(race.date, race.time)?.date || "—"}
+          ·
+          ${formatDateTime(race.date, race.time)?.time || "—"}
+        </div>
       </div>
+
       <div class="session-grid">
-        ${sessions.map(s => `<div class="session"><div class="session-name">${escapeHtml(s.label)}</div><div class="session-date">${escapeHtml(s.date)}</div><div class="session-time">${escapeHtml(s.time)}</div></div>`).join("")}
+        ${sessions.map(s => `
+          <div class="session">
+            <div class="session-name">
+              ${escapeHtml(s.label)}
+            </div>
+
+            <div class="session-date">
+              ${escapeHtml(s.date)}
+            </div>
+
+            <div class="session-time">
+              ${escapeHtml(s.time)}
+            </div>
+          </div>
+        `).join("")}
       </div>
     `;
+
     startCountdown(getRaceDateTime(race));
   }
 
   function startCountdown(target) {
-    if (countdownTimer) clearInterval(countdownTimer);
+    if (countdownTimer) {
+      clearInterval(countdownTimer);
+    }
+
     const el = document.getElementById("countdownValue");
+
     if (!el) return;
 
     function update() {
       const diff = target.getTime() - Date.now();
-      if (diff <= 0) { el.textContent = "IN CORSO"; clearInterval(countdownTimer); return; }
+
+      if (diff <= 0) {
+        el.textContent = "IN CORSO";
+        clearInterval(countdownTimer);
+        return;
+      }
+
       const sec = Math.floor(diff / 1000);
-      el.textContent = `${String(Math.floor(sec / 86400)).padStart(2,"0")}g ${String(Math.floor((sec % 86400) / 3600)).padStart(2,"0")}h ${String(Math.floor((sec % 3600) / 60)).padStart(2,"0")}m ${String(sec % 60).padStart(2,"0")}s`;
+
+      el.textContent =
+        `${String(Math.floor(sec / 86400)).padStart(2, "0")}g ` +
+        `${String(Math.floor((sec % 86400) / 3600)).padStart(2, "0")}h ` +
+        `${String(Math.floor((sec % 3600) / 60)).padStart(2, "0")}m ` +
+        `${String(sec % 60).padStart(2, "0")}s`;
     }
+
     update();
+
     countdownTimer = setInterval(update, 1000);
   }
 
   /* RENDER DRIVERS SENZA TEAM COLUMN */
   function renderDrivers(standings, round) {
-    document.getElementById("driverRound").textContent = round ? `Round ${round}` : "";
-    if (!standings.length) { document.getElementById("driversContent").innerHTML = `<div class="loading">Nessun dato.</div>`; return; }
+    document.getElementById("driverRound").textContent =
+      round ? `Round ${round}` : "";
+
+    if (!standings.length) {
+      document.getElementById("driversContent").innerHTML =
+        `<div class="loading">Nessun dato.</div>`;
+      return;
+    }
 
     const rows = standings.map(item => {
       const driver = item.Driver || {};
       const constructor = item.Constructors?.[0] || {};
       const flag = getFlag(driver.nationality);
-      const name = `${driver.givenName || ""} ${driver.familyName || ""}`.trim();
+
+      const name =
+        `${driver.givenName || ""} ${driver.familyName || ""}`.trim();
 
       return `
         <tr>
-          <td class="position"><span class="position-badge position-${item.position}">${escapeHtml(item.position)}</span></td>
-          <td class="number">${escapeHtml(driver.permanentNumber || "—")}</td>
+          <td class="position">
+            <span class="position-badge position-${item.position}">
+              ${escapeHtml(item.position)}
+            </span>
+          </td>
+
+          <td class="number">
+            ${escapeHtml(driver.permanentNumber || "—")}
+          </td>
+
           <td class="driver-cell">
             <div class="driver-content">
               <span class="driver-flag">${flag}</span>
+
               <div class="driver-info">
-                <div class="driver-name">${escapeHtml(name)}</div>
-                <div class="driver-team">${escapeHtml(constructor.name || "")}</div>
+                <div class="driver-name">
+                  ${escapeHtml(name)}
+                </div>
+
+                <div class="driver-team">
+                  ${escapeHtml(constructor.name || "")}
+                </div>
               </div>
             </div>
           </td>
-          <td class="points">${escapeHtml(item.points)}</td>
+
+          <td class="points">
+            ${escapeHtml(item.points)}
+          </td>
         </tr>
       `;
     }).join("");
@@ -407,36 +1193,71 @@
               <th class="points">Pts</th>
             </tr>
           </thead>
-          <tbody>${rows}</tbody>
+
+          <tbody>
+            ${rows}
+          </tbody>
         </table>
       </div>
     `;
   }
 
   function renderConstructors(standings, round) {
-    document.getElementById("constructorRound").textContent = round ? `Round ${round}` : "";
-    if (!standings.length) { document.getElementById("constructorsContent").innerHTML = `<div class="loading">Nessun dato.</div>`; return; }
+    document.getElementById("constructorRound").textContent =
+      round ? `Round ${round}` : "";
 
-    const maxPoints = Math.max(1, ...standings.map(item => parseFloat(item.points) || 0));
+    if (!standings.length) {
+      document.getElementById("constructorsContent").innerHTML =
+        `<div class="loading">Nessun dato.</div>`;
+      return;
+    }
+
+    const maxPoints =
+      Math.max(
+        1,
+        ...standings.map(item => parseFloat(item.points) || 0)
+      );
+
     const rows = standings.map(item => {
       const constructor = item.Constructor || {};
-      const color = getTeamColor(constructor.constructorId || "");
-      const pointsValue = parseFloat(item.points) || 0;
-      const barWidth = Math.max(4, (pointsValue / maxPoints) * 100);
+      const color =
+        getTeamColor(constructor.constructorId || "");
+
+      const pointsValue =
+        parseFloat(item.points) || 0;
+
+      const barWidth =
+        Math.max(4, (pointsValue / maxPoints) * 100);
 
       return `
         <tr>
-          <td class="position"><span class="position-badge position-${item.position}">${escapeHtml(item.position)}</span></td>
+          <td class="position">
+            <span class="position-badge position-${item.position}">
+              ${escapeHtml(item.position)}
+            </span>
+          </td>
+
           <td class="constructor-cell">
             <div class="constructor-name">
-              <span class="team-dot" style="background:${color}"></span>
+              <span
+                class="team-dot"
+                style="background:${color}"
+              ></span>
+
               ${escapeHtml(constructor.name || "")}
             </div>
           </td>
+
           <td class="points-bar-cell">
             <div class="points-bar-track">
-              <div class="points-bar-fill" style="width:${barWidth}%; background:${color}"></div>
-              <span class="points-bar-value">${escapeHtml(item.points)}</span>
+              <div
+                class="points-bar-fill"
+                style="width:${barWidth}%; background:${color}"
+              ></div>
+
+              <span class="points-bar-value">
+                ${escapeHtml(item.points)}
+              </span>
             </div>
           </td>
         </tr>
@@ -447,9 +1268,16 @@
       <div class="table-scroll">
         <table class="standings-table constructors-table">
           <thead>
-            <tr><th class="position">Pos</th><th>Costruttore</th><th class="points-bar-cell">Pts</th></tr>
+            <tr>
+              <th class="position">Pos</th>
+              <th>Costruttore</th>
+              <th class="points-bar-cell">Pts</th>
+            </tr>
           </thead>
-          <tbody>${rows}</tbody>
+
+          <tbody>
+            ${rows}
+          </tbody>
         </table>
       </div>
     `;
@@ -457,26 +1285,65 @@
 
   function renderCalendar(races) {
     const now = Date.now();
-    const nextIndex = races.findIndex(r => getRaceDateTime(r)?.getTime() > now);
+
+    const nextIndex =
+      races.findIndex(
+        r => getRaceDateTime(r)?.getTime() > now
+      );
 
     const rows = races.map((race, index) => {
       const raceDate = getRaceDateTime(race);
-      const isPast = raceDate ? raceDate.getTime() < now : false;
-      const isNext = index === nextIndex;
-      const flag = getCountryFlag(race.Circuit?.Location?.country);
-      const wikiUrl = race.url || `https://it.wikipedia.org/wiki/${encodeURIComponent(race.raceName)}`;
+
+      const isPast =
+        raceDate ? raceDate.getTime() < now : false;
+
+      const isNext =
+        index === nextIndex;
+
+      const flag =
+        getCountryFlag(race.Circuit?.Location?.country);
+
+      const wikiUrl =
+        race.url ||
+        `https://it.wikipedia.org/wiki/${encodeURIComponent(race.raceName)}`;
 
       return `
         <div class="calendar-row ${isPast ? "past" : ""} ${isNext ? "next" : ""}">
-          <div class="round">${escapeHtml(race.round)}</div>
-          <div class="calendar-date">${formatDate(race.date)} ${isNext ? `<span class="next-badge">NEXT</span>` : ""}</div>
-          <div class="calendar-name">${flag} ${escapeHtml(race.raceName)} <span class="calendar-city">${escapeHtml(race.Circuit?.Location?.locality || "")}</span></div>
-          <a class="wiki" href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Wikipedia">↗</a>
+
+          <div class="round">
+            ${escapeHtml(race.round)}
+          </div>
+
+          <div class="calendar-date">
+            ${formatDate(race.date)}
+            ${isNext
+              ? `<span class="next-badge">NEXT</span>`
+              : ""}
+          </div>
+
+          <div class="calendar-name">
+            ${flag}
+            ${escapeHtml(race.raceName)}
+
+            <span class="calendar-city">
+              ${escapeHtml(race.Circuit?.Location?.locality || "")}
+            </span>
+          </div>
+
+          <a
+            class="wiki"
+            href="${escapeHtml(wikiUrl)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Wikipedia"
+          >↗</a>
+
         </div>
       `;
     }).join("");
 
-    document.getElementById("calendarContent").innerHTML = `<div class="calendar">${rows}</div>`;
+    document.getElementById("calendarContent").innerHTML =
+      `<div class="calendar">${rows}</div>`;
   }
 
   document.addEventListener("DOMContentLoaded", loadData);
